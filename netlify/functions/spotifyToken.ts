@@ -20,7 +20,7 @@ export const handler: Handler = async () => {
   if (!response.ok) {
     return {
       statusCode: response.status,
-      body: JSON.stringify({ error: "Failed to get access token" }),
+      body: JSON.stringify({ error: "Failed to get access token from spotify web api" }),
     };
   }
 

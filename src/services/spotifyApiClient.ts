@@ -2,45 +2,21 @@ import ArtistInfo from "../models/ArtistInfo";
 
 
 class SpotifyApiClient {
-    private clientId: string;
-	private clientSecret: string;
     private accessToken: string | null = null;
 
-    private tokenUrl = "https://accounts.spotify.com/api/token";
     private severalArtistsBaseUrl = 'https://api.spotify.com/v1/artists?ids=';
 
-    constructor(clientId: string, clientSecret: string) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
+    constructor() {
     }
 
-    async init(): Promise<void> {
-		const body = new URLSearchParams({
-			grant_type: "client_credentials",
-			client_id: this.clientId,
-			client_secret: this.clientSecret,
-		});
-
-		const response = await fetch(this.tokenUrl, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded",
-			},
-			body,
-		});
-
+	async init(): Promise<void> {
+		const response = await fetch("/.netlify/functions/spotifyToken");
 		if (!response.ok) {
-			throw new Error(`Failed to fetch token: ${response.status} ${response.statusText}`);
+			throw new Error("Failed to fetch access token from Spotify web api");
 		}
-
-		const data: {
-			access_token: string;
-			token_type: string;
-			expires_in: number;
-		} = await response.json();
-
+		const data = await response.json();
 		this.accessToken = data.access_token;
-    }
+	}
 
     async getSeveralArtists(spotifyIds: string[]): Promise<ArtistInfo[]> {
         // TODO: Throw if access_token is not set

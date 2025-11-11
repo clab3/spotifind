@@ -10,10 +10,7 @@ function App() {
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    // TODO: Restore clientId and clientSecret
-    const clientId = '';
-    const clientSecret = '';
-    const apiClient = new SpotifyApiClient(clientId, clientSecret);
+    const apiClient = new SpotifyApiClient();
     apiClient.init()
       .then(() => setApiClient(apiClient))
       .catch(() => setError('Failed to retrieve access token from Spotify API.'));
