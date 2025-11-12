@@ -4,14 +4,16 @@ import ArtistInfo from "../models/ArtistInfo";
 
 interface ArtistProps {
     artistInfo: ArtistInfo;
+    onClick?: () => void;
 }
 
-function Artist({ artistInfo }: ArtistProps): JSX.Element {
+const cssClassName: string = 'artist';
+
+function Artist({ artistInfo, onClick }: ArtistProps): JSX.Element {
 
     if (artistInfo.imageURLs.length > 0) {
-        // TODO: Constrain the image size
         return (
-            <div>
+            <div className={cssClassName} onClick={onClick} >
                 <img src={artistInfo.imageURLs[0]}></img>
                 <h3>{artistInfo.name}</h3>
             </div>
@@ -19,7 +21,7 @@ function Artist({ artistInfo }: ArtistProps): JSX.Element {
     }
 
     return (
-        <div>
+        <div className={cssClassName} >
             <h3>{artistInfo.name}</h3>
         </div>
     );

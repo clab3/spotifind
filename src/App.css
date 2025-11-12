@@ -1,3 +1,5 @@
+/* TODO: A lot of the original styling is no longer needed */
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +41,82 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.artist-selector {
+  display: flex;
+  overflow-x: auto;       /* enables horizontal scrolling */
+  scroll-behavior: smooth;
+  width: max-content;
+  max-width: 90vw;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  gap: 1rem;              /* space between artists */
+}
+
+.artist-selector::-webkit-scrollbar {
+  height: 8px;
+}
+
+.artist-selector::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.4);
+  border-radius: 4px;
+}
+
+.artist {
+  flex: 0 0 auto;         /* prevent shrinking and wrapping */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.artist:hover {
+  transform: scale(1.05);
+}
+
+.artist img {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.artist h3 {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 0.5em;
+}
+
+.album {
+  flex: 0 0 auto;         /* prevent shrinking and wrapping */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.album:hover {
+  transform: scale(1.05);
+}
+
+.album img {
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.album h3 {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 0.5em;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;                 /* space between items */
+  width: 90%;                /* takes up 90% of the window */
+  margin: 0 auto;            /* centers the grid */
 }

@@ -15,9 +15,10 @@ const henryArtistIDs: string[] = [
 // TODO: There is a better way than passing the client directly
 interface ArtistSelectorProps {
     apiClient: SpotifyApiClient;
+    onArtistSelected: (artistInfo: ArtistInfo) => void;
 }
 
-function ArtistSelector({ apiClient }: ArtistSelectorProps): JSX.Element {
+function ArtistSelector({ apiClient, onArtistSelected }: ArtistSelectorProps): JSX.Element {
 
     const [artists, setArtists] = useState<ArtistInfo[]>([]);
     const [error, setError] = useState<string>('');
@@ -47,9 +48,9 @@ function ArtistSelector({ apiClient }: ArtistSelectorProps): JSX.Element {
     }
 
     return (
-        <div>
+        <div className='artist-selector' >
           {artists.map((artist) => (
-            <Artist key={artist.id} artistInfo={artist} />
+            <Artist key={artist.id} onClick={() => onArtistSelected(artist)} artistInfo={artist} />
           ))}
         </div>
       );
