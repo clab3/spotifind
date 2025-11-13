@@ -4,7 +4,7 @@ class AlbumInfo {
     name: string;
     imageURLs: string[];
     releaseYear: string;
-    numberOfSongs: string
+    numberOfSongs: string;
 
     constructor(
         id: string,

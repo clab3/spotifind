@@ -1,35 +1,51 @@
-import type AlbumInfo from "../models/AlbumInfo";
+import type AlbumDetailInfo from "../models/AlbumDetailInfo";
+import xIcon from "../assets/x-icon.jpg";
 
 
-interface AlbumModalProps {
-    album: AlbumInfo;
+interface AlbumDetailsProps {
+    albumDetailsInfo: AlbumDetailInfo | null;
     onClose: () => void;
-  }
+}
+
+const cssClassName = 'album-details';
   
-export default function AlbumModal({ album, onClose }: AlbumModalProps) {
+export default function AlbumDetails({ albumDetailsInfo, onClose }: AlbumDetailsProps) {
+
+    // Note: we could pass the basic info if we wanted to display everything except the track list
+    // while it loads
+    if (!albumDetailsInfo) {
+        return (
+            <div className={cssClassName} >
+                <button onClick={onClose} style={{ float: "right" }}>
+                    Close
+                </button>
+                <h2> Loading... </h2>
+            </div>
+        );
+    }
+    const artists = albumDetailsInfo.artists;
+    const artistName = artists.length == 1 ? artists[0] : artists.join(', ');
+
+    let imgElement = <div></div>;
+    if (albumDetailsInfo.imageURLs.length > 0) {
+        imgElement = <img src={albumDetailsInfo.imageURLs[0]} className='album-details-art' ></img>;
+    }
     return (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "80vw",
-            height: "80vh",
-            backgroundColor: "white",
-            zIndex: 1000,
-            boxShadow: "0 0 10px rgba(0,0,0,0.5)",
-            overflow: "auto",
-            borderRadius: "8px",
-            padding: "1rem",
-          }}
-        >
-            <button onClick={onClose} style={{ float: "right" }}>
-              Close
+        <div className={cssClassName} >
+            <button onClick={onClose} className={cssClassName + '-close'}>
+                <img src={xIcon} alt="Close" className="close-icon" />
             </button>
-            <h2>{album.name}</h2>
-            {/* put album details here */}
+            {imgElement}
+            <h2>{albumDetailsInfo.name}</h2>
+            <h3> {artistName} - {albumDetailsInfo.releaseYear} - {albumDetailsInfo.songs.length} Songs</h3>
+            <div className="song-list">
+                {albumDetailsInfo.songs.map((song, index) => (
+                    <div key={index} className="song-item">
+                        <span className="song-number">{index + 1}.</span>
+                        <span className="song-name">{song}</span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
-  

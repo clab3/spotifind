@@ -120,3 +120,80 @@
   width: 90%;                /* takes up 90% of the window */
   margin: 0 auto;            /* centers the grid */
 }
+
+.album-details {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 550px;
+  height: 90vh;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  border-radius: 8px;
+  padding: 1rem;
+  color: black; /* text */
+}
+
+.album-details-art {
+  width: 90%; /* responsive to its container */
+  height: auto;
+  margin-top: 5%;
+}
+
+.album-details-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: transparent;
+  display: inline-flex;            
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.album-details-close:hover {
+  background-color: lightgray;
+}
+
+.close-icon {
+  width: 15px;
+  height: auto;
+}
+
+.details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.song-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* small space between songs */
+}
+
+.song-item {
+  display: flex;
+  align-items: baseline;
+}
+
+.song-number {
+  color: gray;
+  text-align: right;
+  width: 2em; /* adjust this width depending on how many digits */
+  margin-right: 0.5em;
+  font-variant-numeric: tabular-nums; /* ensures equal width numbers */
+}
+
+.song-name {
+  color: black;
+}

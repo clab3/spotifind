@@ -7,6 +7,7 @@ import type ArtistInfo from './models/ArtistInfo';
 import Album from './components/Album';
 import type AlbumInfo from './models/AlbumInfo';
 import AlbumDetails from './components/AlbumDetails';
+import AlbumDetailInfo from './models/AlbumDetailInfo';
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
 
   // Album selection and album details
   const [selectedAlbumInfo, setSelectedAlbumInfo] = useState<AlbumInfo | null>(null);
+  const [selectedAlbumDetails, setSelectedAlbumDetails] = useState<AlbumDetailInfo | null>(null);
 
   const handleAlbumSelected = (album: AlbumInfo) => {
     setSelectedAlbumInfo(album);
@@ -67,7 +69,32 @@ function App() {
 
   const handleAlbumDetailsClosed = () => {
     setSelectedAlbumInfo(null);
+    setSelectedAlbumDetails(null);
   };
+
+  useEffect(() => {
+    if (!selectedAlbumInfo) {
+      return;
+    }
+    if (!apiClient) {
+      throw new Error('App: Cannot call getAlbum without apiClient.')
+    }
+
+    const fetchAlbumDetails = async () => {
+      try {
+        const albumDetails = await apiClient.getAlbum(selectedAlbumInfo.id);
+        setSelectedAlbumDetails(albumDetails);
+      }
+      // TODO: Implement retry logic, as there will likely be occasional network errors
+      catch (err) {
+        // TODO: this error message will block everything out, so this is bad
+        setError(`Failed to retrieve album from Spotify API.`)
+      }
+    }
+
+    fetchAlbumDetails();
+
+  }, [selectedAlbumInfo])
 
 
   // JSX display
@@ -112,7 +139,12 @@ function App() {
 
   let albumDetails: JSX.Element = <div></div>;
   if (selectedAlbumInfo) {
-    albumDetails = <AlbumDetails album={selectedAlbumInfo} onClose={handleAlbumDetailsClosed} />
+    albumDetails = (
+      <div>
+        <div className="details-overlay" onClick={handleAlbumDetailsClosed}></div>
+        <AlbumDetails albumDetailsInfo={selectedAlbumDetails} onClose={handleAlbumDetailsClosed} />
+      </div>
+    )
   }
 
   return (
