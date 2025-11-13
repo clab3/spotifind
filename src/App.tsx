@@ -49,7 +49,7 @@ function App() {
         setAlbums(albums);
       } catch (err) {
         // TODO: Implement retry logic, as there will likely be occasional network errors
-        // TODO: this error message will block everything out, so this is bad
+        // and this error message will block everything out, which is bad
         setError(`Failed to retrieve artist's albums from Spotify API.`);
       }
     };
@@ -84,7 +84,7 @@ function App() {
         setSelectedAlbumDetails(albumDetails);
       } catch (err) {
         // TODO: Implement retry logic, as there will likely be occasional network errors
-        // TODO: this error message will block everything out, so this is bad
+        // and this error message will block everything out, which is bad
         setError(`Failed to retrieve album from Spotify API.`);
       }
     };
@@ -143,7 +143,7 @@ function App() {
   return (
     <div>
       {title}
-      <h2> Choose an artist to base your search off of!</h2>
+      <h2> Choose an artist for your search</h2>
       <ArtistSelector apiClient={apiClient} onArtistSelected={handleArtistSelected} />
       {albumsElement}
       {albumDetails}

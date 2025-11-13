@@ -12,7 +12,6 @@ const henryArtistIDs: string[] = [
   '5b5bt4mZQpJMoCRbiQ7diH', // Royel Otis
 ];
 
-// TODO: There is a better way than passing the client directly
 interface ArtistSelectorProps {
   apiClient: SpotifyApiClient;
   onArtistSelected: (artistInfo: ArtistInfo) => void;
