@@ -1,31 +1,30 @@
-
 class AlbumInfo {
-    id: string;
-    name: string;
-    imageURLs: string[];
-    releaseYear: string;
-    numberOfSongs: string;
+  id: string;
+  name: string;
+  imageURLs: string[];
+  releaseYear: string;
+  numberOfSongs: string;
 
-    constructor(
-        id: string,
-        name: string,
-        imageURLs: string[],
-        releaseYear: string,
-        numberOfSongs: string
-    ) {
-        this.id = id;
-        this.name = name;
-        this.imageURLs = imageURLs;
-        this.releaseYear = releaseYear;
-        this.numberOfSongs = numberOfSongs;
-    }
+  constructor(
+    id: string,
+    name: string,
+    imageURLs: string[],
+    releaseYear: string,
+    numberOfSongs: string,
+  ) {
+    this.id = id;
+    this.name = name;
+    this.imageURLs = imageURLs;
+    this.releaseYear = releaseYear;
+    this.numberOfSongs = numberOfSongs;
+  }
 }
 
 export default AlbumInfo;
 
 /**
  * Things we could parse
- * 
+ *
  * "album_type": "compilation",
  * "total_tracks": 9,
  * "available_markets": ["CA", "BR", "IT"],

@@ -1,6 +1,6 @@
 import { type JSX, useEffect, useState } from 'react';
 
-import './App.css'
+import './App.css';
 import ArtistSelector from './components/ArtistSelector';
 import SpotifyApiClient from './services/spotifyApiClient';
 import type ArtistInfo from './models/ArtistInfo';
@@ -8,7 +8,6 @@ import Album from './components/Album';
 import type AlbumInfo from './models/AlbumInfo';
 import AlbumDetails from './components/AlbumDetails';
 import AlbumDetailInfo from './models/AlbumDetailInfo';
-
 
 function App() {
   const [error, setError] = useState<string>('');
@@ -18,7 +17,8 @@ function App() {
 
   useEffect(() => {
     const apiClient = new SpotifyApiClient();
-    apiClient.init()
+    apiClient
+      .init()
       .then(() => setApiClient(apiClient))
       .catch(() => setError('Failed to retrieve access token from Spotify API.'));
   }, []);
@@ -33,31 +33,29 @@ function App() {
     }
     setAlbums([]);
     setSelectedArtistInfo(artistInfo);
-  }
+  };
 
   useEffect(() => {
     if (!selectedArtistInfo) {
       return;
     }
     if (!apiClient) {
-      throw new Error('App: Cannot call getRelatedArtists without apiClient.')
+      throw new Error('App: Cannot call getRelatedArtists without apiClient.');
     }
 
     const fetchArtistAlbums = async () => {
       try {
         const albums = await apiClient.getArtistAlbums(selectedArtistInfo.id);
         setAlbums(albums);
-      }
-      // TODO: Implement retry logic, as there will likely be occasional network errors
-      catch (err) {
+      } catch (err) {
+        // TODO: Implement retry logic, as there will likely be occasional network errors
         // TODO: this error message will block everything out, so this is bad
-        setError(`Failed to retrieve artist's albums from Spotify API.`)
+        setError(`Failed to retrieve artist's albums from Spotify API.`);
       }
-    }
-      
-    fetchArtistAlbums();
+    };
 
-  }, [selectedArtistInfo])
+    fetchArtistAlbums();
+  }, [selectedArtistInfo]);
 
   // Album selection and album details
   const [selectedAlbumInfo, setSelectedAlbumInfo] = useState<AlbumInfo | null>(null);
@@ -77,25 +75,22 @@ function App() {
       return;
     }
     if (!apiClient) {
-      throw new Error('App: Cannot call getAlbum without apiClient.')
+      throw new Error('App: Cannot call getAlbum without apiClient.');
     }
 
     const fetchAlbumDetails = async () => {
       try {
         const albumDetails = await apiClient.getAlbum(selectedAlbumInfo.id);
         setSelectedAlbumDetails(albumDetails);
-      }
-      // TODO: Implement retry logic, as there will likely be occasional network errors
-      catch (err) {
+      } catch (err) {
+        // TODO: Implement retry logic, as there will likely be occasional network errors
         // TODO: this error message will block everything out, so this is bad
-        setError(`Failed to retrieve album from Spotify API.`)
+        setError(`Failed to retrieve album from Spotify API.`);
       }
-    }
+    };
 
     fetchAlbumDetails();
-
-  }, [selectedAlbumInfo])
-
+  }, [selectedAlbumInfo]);
 
   // JSX display
   const title: JSX.Element = <h1>Spotify Album Viewer</h1>;
@@ -107,33 +102,31 @@ function App() {
         <h2>{error}</h2>
         <h2> Try refreshing the page. </h2>
       </div>
-    )
-  }
-  else if (!apiClient) {
+    );
+  } else if (!apiClient) {
     return (
       <div>
         {title}
         <h2> Loading... </h2>
       </div>
-    )
+    );
   }
 
   let albumsElement: JSX.Element = <div></div>;
   if (selectedArtistInfo) {
     if (albums.length == 0) {
-      albumsElement = <h2>Loading...</h2>
-    }
-    else {
+      albumsElement = <h2>Loading...</h2>;
+    } else {
       albumsElement = (
         <div>
           <h2>Albums by {selectedArtistInfo.name}</h2>
-          <div className='album-grid'>
+          <div className="album-grid">
             {albums.map((album) => (
               <Album key={album.id} albumInfo={album} onClick={() => handleAlbumSelected(album)} />
             ))}
           </div>
         </div>
-      )
+      );
     }
   }
 
@@ -144,7 +137,7 @@ function App() {
         <div className="details-overlay" onClick={handleAlbumDetailsClosed}></div>
         <AlbumDetails albumDetailsInfo={selectedAlbumDetails} onClose={handleAlbumDetailsClosed} />
       </div>
-    )
+    );
   }
 
   return (
@@ -155,7 +148,7 @@ function App() {
       {albumsElement}
       {albumDetails}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,28 +1,27 @@
-
 // The main difference between this and AlbumInfo is that this has the full track list
 class AlbumDetailInfo {
-    id: string;
-    name: string;
-    artists: string[];
-    imageURLs: string[];
-    releaseYear: string;
-    songs: string[];
+  id: string;
+  name: string;
+  artists: string[];
+  imageURLs: string[];
+  releaseYear: string;
+  songs: string[];
 
-    constructor(
-        id: string,
-        name: string,
-        artists: string[],
-        imageURLs: string[],
-        releaseYear: string,
-        songs: string[]
-    ) {
-        this.id = id;
-        this.name = name;
-        this.artists = artists;
-        this.imageURLs = imageURLs;
-        this.releaseYear = releaseYear;
-        this.songs = songs;
-    }
+  constructor(
+    id: string,
+    name: string,
+    artists: string[],
+    imageURLs: string[],
+    releaseYear: string,
+    songs: string[],
+  ) {
+    this.id = id;
+    this.name = name;
+    this.artists = artists;
+    this.imageURLs = imageURLs;
+    this.releaseYear = releaseYear;
+    this.songs = songs;
+  }
 }
 
 export default AlbumDetailInfo;

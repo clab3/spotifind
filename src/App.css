@@ -45,13 +45,13 @@
 
 .artist-selector {
   display: flex;
-  overflow-x: auto;       /* enables horizontal scrolling */
+  overflow-x: auto; /* enables horizontal scrolling */
   scroll-behavior: smooth;
   width: max-content;
   max-width: 90vw;
   margin: 0 auto;
   padding: 1rem 2rem;
-  gap: 1rem;              /* space between artists */
+  gap: 1rem; /* space between artists */
 }
 
 .artist-selector::-webkit-scrollbar {
@@ -64,7 +64,7 @@
 }
 
 .artist {
-  flex: 0 0 auto;         /* prevent shrinking and wrapping */
+  flex: 0 0 auto; /* prevent shrinking and wrapping */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,7 +89,7 @@
 }
 
 .album {
-  flex: 0 0 auto;         /* prevent shrinking and wrapping */
+  flex: 0 0 auto; /* prevent shrinking and wrapping */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,9 +116,9 @@
 .album-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1rem;                 /* space between items */
-  width: 90%;                /* takes up 90% of the window */
-  margin: 0 auto;            /* centers the grid */
+  gap: 1rem; /* space between items */
+  width: 90%; /* takes up 90% of the window */
+  margin: 0 auto; /* centers the grid */
 }
 
 .album-details {
@@ -150,7 +150,7 @@
   right: 8px;
   border: none;
   background: transparent;
-  display: inline-flex;            
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
