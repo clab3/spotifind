@@ -9,14 +9,18 @@ interface AlbumDetailsProps {
 const cssClassName = 'album-details';
 
 export default function AlbumDetails({ albumDetailsInfo, onClose }: AlbumDetailsProps) {
-  // Note: we could pass the basic info if we wanted to display everything except the track list
+  const xButton = (
+    <button onClick={onClose} className={cssClassName + '-close'}>
+      <img src={xIcon} alt="Close" className="close-icon" />
+    </button>
+  );
+
+  // NOTE: we could pass the basic info if we wanted to display everything except the track list
   // while it loads
   if (!albumDetailsInfo) {
     return (
       <div className={cssClassName}>
-        <button onClick={onClose} style={{ float: 'right' }}>
-          Close
-        </button>
+        {xButton}
         <h2> Loading... </h2>
       </div>
     );
@@ -30,9 +34,7 @@ export default function AlbumDetails({ albumDetailsInfo, onClose }: AlbumDetails
   }
   return (
     <div className={cssClassName}>
-      <button onClick={onClose} className={cssClassName + '-close'}>
-        <img src={xIcon} alt="Close" className="close-icon" />
-      </button>
+      {xButton}
       {imgElement}
       <h2>{albumDetailsInfo.name}</h2>
       <h3>
