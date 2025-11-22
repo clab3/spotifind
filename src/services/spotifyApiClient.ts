@@ -1,6 +1,6 @@
 import AlbumDetailInfo from '../models/AlbumDetailInfo';
 import AlbumInfo from '../models/AlbumInfo';
-import ArtistInfo from '../models/ArtistInfo';
+import ArtistDetails from '../models/ArtistDetails';
 
 class SpotifyApiClient {
   private accessToken: string | null = null;
@@ -20,13 +20,13 @@ class SpotifyApiClient {
     this.accessToken = data.access_token;
   }
 
-  getArtistInfosFromJson(json: { artists: object[] }): ArtistInfo[] {
-    const artistInfos: ArtistInfo[] = json.artists.map((artist: any) => {
+  getArtistDetailsFromJson(json: { artists: object[] }): ArtistDetails[] {
+    const artistInfos: ArtistDetails[] = json.artists.map((artist: any) => {
       const id = artist.id;
       const name = artist.name;
       const imageURLs = artist.images.map((img: any) => img.url);
 
-      return new ArtistInfo(id, name, imageURLs);
+      return new ArtistDetails(id, name, imageURLs);
     });
 
     return artistInfos;
@@ -57,7 +57,7 @@ class SpotifyApiClient {
     return new AlbumDetailInfo(id, name, artists, imageURLS, releaseYear, songs);
   }
 
-  async getSeveralArtists(spotifyIds: string[]): Promise<ArtistInfo[]> {
+  async getSeveralArtists(spotifyIds: string[]): Promise<ArtistDetails[]> {
     if (!this.accessToken) {
       throw new Error('SpotifyApiClient: Access token not set, cannot call getSeveralArtists()');
     }
@@ -74,7 +74,7 @@ class SpotifyApiClient {
     }
 
     const data = await response.json();
-    return this.getArtistInfosFromJson(data);
+    return this.getArtistDetailsFromJson(data);
   }
 
   async getArtistAlbums(artistSpotifyId: string): Promise<AlbumInfo[]> {

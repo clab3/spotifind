@@ -1,8 +1,13 @@
-#root {
+html, body, #root {
+  height: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
+}
+
+.page-container {
+  padding-top: 50px;
 }
 
 .artist-selector {
@@ -151,7 +156,7 @@
 .song-number {
   color: gray;
   text-align: right;
-  width: 2em; /* adjust this width depending on how many digits */
+  width: 2em;
   margin-right: 0.5em;
   font-variant-numeric: tabular-nums; /* ensures equal width numbers */
 }

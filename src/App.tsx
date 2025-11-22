@@ -1,13 +1,14 @@
 import { type JSX, useEffect, useState } from 'react';
 
 import './App.css';
-import ArtistSelector from './components/ArtistSelector';
+import ArtistTileSelector from './components/ArtistTileSelector';
 import SpotifyApiClient from './services/spotifyApiClient';
 import type ArtistInfo from './models/ArtistInfo';
 import Album from './components/Album';
 import type AlbumInfo from './models/AlbumInfo';
 import AlbumDetails from './components/AlbumDetails';
 import AlbumDetailInfo from './models/AlbumDetailInfo';
+import ArtistDropdown from './components/ArtistDropdown';
 
 function App() {
   const [error, setError] = useState<string>('');
@@ -50,7 +51,9 @@ function App() {
       } catch (err) {
         // TODO: Implement retry logic, as there will likely be occasional network errors
         // and this error message will block everything out, which is bad
-        setError(`Failed to retrieve artist's albums from Spotify API.`);
+        setError(
+          `Failed to retrieve artist's albums from Spotify API for id ${selectedArtistInfo.id}.`,
+        );
       }
     };
 
@@ -97,7 +100,7 @@ function App() {
 
   if (error !== '') {
     return (
-      <div>
+      <div className='page-container'>
         {title}
         <h2>{error}</h2>
         <h2> Try refreshing the page. </h2>
@@ -105,7 +108,7 @@ function App() {
     );
   } else if (!apiClient) {
     return (
-      <div>
+      <div className='page-container'>
         {title}
         <h2> Loading... </h2>
       </div>
@@ -141,10 +144,15 @@ function App() {
   }
 
   return (
-    <div>
+    <div className='page-container'>
       {title}
-      <h2> Choose an artist for your search</h2>
-      <ArtistSelector apiClient={apiClient} onArtistSelected={handleArtistSelected} />
+      <h2> Choose one of Henry's favorite artists for your search</h2>
+      <ArtistTileSelector apiClient={apiClient} onArtistSelected={handleArtistSelected} />
+      <h2> Or choose one of the other top 50 artists on Spotify</h2>
+      <ArtistDropdown
+        selectedArtistInfo={selectedArtistInfo}
+        onArtistSelected={handleArtistSelected}
+      />
       {albumsElement}
       {albumDetails}
     </div>
